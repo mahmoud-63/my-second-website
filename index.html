@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8"/>
+<title>Go Healthy</title>
+<meta name="description" content="Go Healthy is a website dedicated to helping you choose the best healthy meals based on your personal data, Go Healthy provides precise and personalized recommendations. By analyzing your age, weight, height, and gender, the site suggests nutritious meal options tailored to your body's requirements and enhances your well-being. "/>
+ <script>
+ document.addEventListener('DOMContentLoaded', function () {
+        document.querySelector('.form').addEventListener('submit', function (event) {
+            event.preventDefault(); // منع الإرسال التلقائي للنموذج
+
+            // الحصول على القيم المدخلة
+            const gender = document.getElementById('gender').value;
+            const age = parseFloat(document.getElementById('age').value);
+            const height = parseFloat(document.getElementById('height').value);
+            const weight = parseFloat(document.getElementById('weight').value);
+
+            // التحقق من صحة المدخلات
+            if (isNaN(age) || isNaN(height) || isNaN(weight) || age <= 0 || height <= 0 || weight <= 0) {
+                alert('يرجى إدخال أرقام موجبة فقط.');
+                return;
+            }
+
+            // حساب مؤشر كتلة الجسم (BMI)
+            const bmi = weight / ((height / 100) ** 2);
+
+            // تحديد الوجبة بناءً على مؤشر كتلة الجسم
+            let mealRecommendation;
+            if (bmi < 18.5) {
+                mealRecommendation = 'وجبة عالية السعرات الحرارية مثل:'
+                    + ' - الأرز والدجاج مع الخضروات'
+                    + ' - البطاطس المقلية مع اللحم البقري'
+                    + ' - المكسرات والفواكه المجففة';
+            } else if (bmi >= 18.5 && bmi < 24.9) {
+                mealRecommendation = 'وجبة متوازنة مثل:'
+                    + ' - السلطة مع السمك المشوي'
+                    + ' - الدجاج المشوي مع الكينوا والخضروات'
+                    + ' - الشوفان مع الفواكه الطازجة';
+            } else {
+                mealRecommendation = 'وجبة منخفضة السعرات الحرارية مثل:'
+                    + ' - الخضروات المشوية مع صلصة الليمون'
+                    + ' - سلطة الدجاج الخضراء'
+                    + ' - شوربة العدس';
+            }
+
+            // عرض التوصية
+            alert(`استنادًا إلى مدخلك، نقترح عليك: ${mealRecommendation}`);
+        });
+    });
+</script>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.Welcome_Message {
+    text-align: center;
+    padding: 20px;
+    background-color: #4CAF50;
+    color: white;
+}
+
+.motivation_bar {
+    text-align: center;
+    padding: 10px;
+    background-color: #e7e7e7;
+}
+
+.form_div {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form div {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input[type="number"],
+select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+input[type="submit"],
+input[type="reset"] {
+    width: 48%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 16px;
+}
+
+input[type="submit"] {
+    background-color: #4CAF50;
+    margin-right: 4%;
+}
+
+input[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+input[type="reset"] {
+    background-color: #f44336;
+}
+
+input[type="reset"]:hover {
+    background-color: #e53935;
+}
+</style>
+</head>
+<body>
+    <div class="Welcome_Message">
+    <h1>Welcome To Go Healthy</h1>
+    </div>
+    <div class="motivation_bar">
+        <p>Your Journey To Healthier Meals Starts Here</p>
+    </div>
+  <div class="form_div">
+    <!-- <hr> -->
+   <form class="form">
+    <div class="gender_selection">
+    <label for="gender">Select Your Gender </label>
+    <select id="gender" name="gender" required autofocus>
+        <option>---Please Select a Gender---</option>
+        <option>male</option>
+        <option>female</option>
+    </select>
+    <!-- <hr> -->
+    </div>
+    <div class="age">
+        <label for="age">Age :</label>
+        <input id="age" 
+        type="number" 
+        min="1" 
+        step="0.1" 
+        required 
+        placeholder="Age">
+    </div>
+    <!-- <hr> -->
+    <div class="height">
+        <label for="height">Height (cm) :</label>
+        <input 
+        id="height"
+        type="number" 
+        min="1" 
+        step="0.1" 
+        required 
+        placeholder="Height (cm)">
+    </div>
+    <!-- <hr> -->
+    <div class="weight">
+        <label for="weight">Weight (Kg) :</label>
+        <input id="weight"
+         type="number" 
+         min="1" 
+         step="0.1" required
+        placeholder="Weight (Kg)">
+    </div>
+    <div class="submit">
+        <input type="submit">
+    </div>
+    <div class="reset">
+        <input id="reset" type="reset">
+    </div>
+</form>
+</div>
+</body>
+</html>
